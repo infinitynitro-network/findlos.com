@@ -77,13 +77,15 @@
             background-color: rgba(0, 0, 0, 0.3);
         }
         .wallet-address {
+            font-size: 13px;
             color: #00ff2a; /* Change the color of the "Wallet Address" text */
         }
         .uid {
+            font-size: 12px;
             font-family: "Courier Prime", monospace;
             font-weight: 400;
             font-style: normal;
-            color: #001aff; /* Change the color of the UID */
+            color: #ffffff; /* Change the color of the UID */
         }
       
         .subscribe{
@@ -140,9 +142,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-family: "Varela", sans-serif;
-    font-weight: 600;
-    font-style: normal;
+    font-family: "Courier Prime", monospace;
+  font-weight: 400;
+  font-style: normal;
   }
   
   #start-button:hover {
@@ -297,7 +299,7 @@ for (let i = 0; i < 1000; i++) {
 
 document.getElementById('collect-button').addEventListener('click', () => {
     // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
-    let coinsToAdd = Math.random() * (0.00000120 - 0.00000020) + 0.00000020;
+    let coinsToAdd = Math.random() * (0.000011120 - 0.0000120) + 0.0000120;
     
     // Display the claimable coins value with a Bitcoin image
     const claimableCoinsContainer = document.getElementById('claimable-coins-container');
@@ -355,9 +357,8 @@ document.getElementById('collect-button').addEventListener('click', () => {
     coinCounter.textContent = `BTC   :  ${coins.toFixed(8)}`;
     document.getElementById('collect-button').style.display = 'none';
 
-
      // Add sound effect
-  const collectSound = new Audio('music/coins.mp3');
+  const collectSound = new Audio('music/coins.mpp3');
   collectSound.play();
 });
 

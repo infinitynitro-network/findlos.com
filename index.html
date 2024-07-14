@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling UIDs</title>
+    <style>
+        body{
+            background-color: black;
+            color: rgb(255, 255, 255);
+            justify-content: center;
+        }
+        /* Add some basic styling to make the UIDs visible */
+        #container {
+            width: auto;
+            height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: auto;
+            background-color: rgb(41, 40, 40);
+            overflow-y: hidden;
+            
+     
+     
+    margin: auto;
+    background-color: rgb(41, 40, 40);
+        }
+        #container div {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        #start-button {
+            appearance: none;
+            background-color: #8f00ee;
+            border: 1px solid rgba(27, 31, 35, 0.15);
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+            box-sizing: border-box;
+            color: #fdfeff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            list-style: none;
+            padding: 6px 16px;
+            position: relative;
+            transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: middle;
+            white-space: nowrap;
+            word-wrap: break-word;
+        }
+        #coin-counter {
+            font-size: 24px;
+            font-weight: bold;
+            margin: auto;
+        }
+        #collect-button {
+            appearance: none;
+            background-color: #ee0000;
+            border: 1px solid rgba(27, 31, 35, 0.15);
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+            box-sizing: border-box;
+            color: #fdfeff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            list-style: none;
+            padding: 6px 16px;
+            position: relative;
+            transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            vertical-align: middle;
+            white-space: nowrap;
+            word-wrap: break-word;
+        }
+        #clear-button {
+            margin-top: 20px;
+        }
+        .bitcoin-image {
+            width: 16px;
+            height: 16px;
+            margin-left: 5px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .wallet-address {
+            color: #ff0000; /* Change the color of the "Wallet Address" text */
+        }
+        .uid {
+            color: #001aff; /* Change the color of the UID */
+        }
+    </style>
+</head>
+<body>
+    <div id="coin-counter">Coins: 0.00000112</div>
+    <div id="container"></div>
+    <button id="start-button">Start</button>
+    <button id="collect-button" style="display: none;">Collect</button>
+    <button id="clear-button">Clear Coins</button>
+
+    <script>
+       // Function to generate a random 20-letter UID
+function generateUID() {
+    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let uid = '';
+    for (let i = 0; i < 45; i++) {
+        uid += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return uid;
+}
+
+// Generate 1000 UIDs and add them to the container
+const container = document.getElementById('container');
+for (let i = 0; i < 1000; i++) {
+    const uid = generateUID();
+    const div = document.createElement('div');
+    const walletAddressSpan = document.createElement('span');
+    walletAddressSpan.className = 'wallet-address';
+    walletAddressSpan.textContent = 'Wallet Address: ';
+    const uidSpan = document.createElement('span');
+    uidSpan.className = 'uid';
+    uidSpan.textContent = uid;
+    div.appendChild(walletAddressSpan);
+    div.appendChild(uidSpan);
+    const bitcoinImage = document.createElement('img');
+    bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
+    bitcoinImage.className = 'bitcoin-image';
+    div.appendChild(bitcoinImage);
+    container.appendChild(div);
+}
+
+// Set the scroll position to the top
+container.scrollTop = 0;
+
+let intervalId = null;
+let timeoutId = null;
+
+// Get the coin count from local storage
+let coins = localStorage.getItem('coins');
+if (coins === null) {
+    coins = Math.random() * 0.00000008 + 0.00000112;
+    localStorage.setItem('coins', coins.toFixed(8));
+} else {
+    coins = parseFloat(coins);
+}
+
+// Update the coin counter
+const coinCounter = document.getElementById('coin-counter');
+coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+
+// Add event listener to the Start button
+document.getElementById('start-button').addEventListener('click', () => {
+    // Start scrolling
+    intervalId = setInterval(() => {
+        container.scrollTop += 50;
+        if (container.scrollTop + container.offsetHeight >= container.scrollHeight) {
+            container.scrollTop = 0;
+        }
+    }, 50);
+
+    // Stop scrolling after a random time between 2-20 seconds
+    timeoutId = setTimeout(() => {
+        clearInterval(intervalId);
+        document.getElementById('collect-button').style.display = 'block';
+    }, Math.floor(Math.random() * (20000 - 2000) + 2000));
+});
+
+// Add event listener to the Collect button
+document.getElementById('collect-button').addEventListener('click', () => {
+    // Calculate the amount of coins to add (randomly between 12 and 49)
+    let coinsToAdd = Math.floor(Math.random() * (0.0000049 - 0.0000012 + 0.000001)) + 0.0000012;
+    coins += coinsToAdd;
+    localStorage.setItem('coins', coins.toFixed(8));
+    coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+    document.getElementById('collect-button').style.display = 'none';
+});
+
+// Add event listener to the Clear button
+document.getElementById('clear-button').addEventListener('click', () => {
+    localStorage.removeItem('coins');
+    coins = Math.random() * 0.00000008 + 0.00000112;
+    localStorage.setItem('coins', coins.toFixed(8));
+    coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+});
+    </script>
+</body>
+</html>

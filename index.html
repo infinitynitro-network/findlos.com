@@ -354,6 +354,11 @@ document.getElementById('collect-button').addEventListener('click', () => {
     localStorage.setItem('coins', coins.toFixed(8));
     coinCounter.textContent = `BTC   :  ${coins.toFixed(8)}`;
     document.getElementById('collect-button').style.display = 'none';
+
+
+     // Add sound effect
+  const collectSound = new Audio('music/coins.mp3');
+  collectSound.play();
 });
 
 // Add event listener to the Clear button

@@ -7,11 +7,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <style>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+<style>
+        *{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
         body{
             background-color: rgb(37, 37, 37);
             color: rgb(255, 255, 255);
             justify-content: center;
+            margin-bottom: 20vh;
+
         }
         /* Add some basic styling to make the UIDs visible */
         #container {
@@ -40,9 +53,10 @@
             font-weight: bold;
             margin: auto;
          text-align: center;
-         font-family: "Poppins", sans-serif;
-         font-weight: 400;
-         font-style: normal;
+         font-family: "Unbounded", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
          
         }
         
@@ -66,12 +80,14 @@
             color: #00ff2a; /* Change the color of the "Wallet Address" text */
         }
         .uid {
+            font-family: "Courier Prime", monospace;
+            font-weight: 400;
+            font-style: normal;
             color: #001aff; /* Change the color of the UID */
         }
       
         .subscribe{
         color: #fdfeff;
-        background-color: #001aff;
         background-color: rgb(195, 0, 255);
         color: white;
         padding: 15px 30px;
@@ -90,7 +106,6 @@
         }
         .subscribe2{
             color: #fdfeff;
-            background-color: #001aff;
             background-color: rgb(0, 0, 0);
             color: white;
             padding: 15px 30px;
@@ -190,13 +205,19 @@
     border-radius: 25px;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 60px;
+   margin-top
+   : 200px;
     text-align: center;
     animation: zoomInOut 1s infinite alternate;
     font-family: "Varela", sans-serif;
     font-weight: 600;
     font-style: normal;
-    margin-left: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  #bitcoinImage{
+    display: block;
   }
     </style>
 </head>
@@ -204,7 +225,7 @@
    
     <div id="coin-counter">
        
-        <a>Coins: 0.00000112</a></div>
+        <a>BTC 0.00000112</a></div>
     <div id="container"></div>
     
     <div id="claimable-coins-container"></div>
@@ -216,7 +237,9 @@
 
   </div> 
      
-    <button class="subscribe"> Subscribe our community</button>
+    <button class="subscribe"  onclick="location.href='https://t.me/flcfound'" > 
+        <a>For daily Airdops</a>
+        <a>Subscribe our community</a></button>
     <button class="withdraw" id="withdraw-button">Withdraw</button>
 
 
@@ -234,14 +257,23 @@
 
     <script>
        // Function to generate a random 20-letter UID
+// Function to generate a random 20-letter UID
 function generateUID() {
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let uid = '';
+    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
     for (let i = 0; i < 45; i++) {
-        uid += characters.charAt(Math.floor(Math.random() * characters.length));
+      uid += characters.charAt(Math.floor(Math.random() * characters.length));
     }
+    
+    // Truncate the UID string if it's too long
+    const maxLength = 40; // adjust this value based on your screen size
+    if (uid.length > maxLength) {
+      uid = uid.substring(0, maxLength - 1) + '...';
+    }
+    
     return uid;
-}
+  }
 
 // Generate 1000 UIDs and add them to the container
 const container = document.getElementById('container');
@@ -262,19 +294,15 @@ for (let i = 0; i < 1000; i++) {
     div.appendChild(bitcoinImage);
     container.appendChild(div);
 }
-// JavaScript
-document.getElementById('collect-button').addEventListener('click', () => {
-    // Calculate the amount of coins to add (randomly between 12 and 49)
-    let coinsToAdd = Math.floor(Math.random() * (0.0000049 - 0.0000012 + 0.000001)) + 0.0000012;
-    coins += coinsToAdd;
-    localStorage.setItem('coins', coins.toFixed(8));
-    coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
-    document.getElementById('collect-button').style.display = 'none';
 
+document.getElementById('collect-button').addEventListener('click', () => {
+    // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
+    let coinsToAdd = Math.random() * (0.00000120 - 0.00000020) + 0.00000020;
+    
     // Display the claimable coins value with a Bitcoin image
     const claimableCoinsContainer = document.getElementById('claimable-coins-container');
     const claimableCoinsDiv = document.createElement('div');
-    claimableCoinsDiv.textContent = `succesfully received ${coinsToAdd.toFixed(8)}`;
+    claimableCoinsDiv.textContent = `successfully received ${coinsToAdd.toFixed(8)}`;
     const bitcoinImage = document.createElement('img');
     bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
     bitcoinImage.className = 'bitcoin-image';
@@ -299,7 +327,7 @@ if (coins === null) {
 
 // Update the coin counter
 const coinCounter = document.getElementById('coin-counter');
-coinCounter.textContent = `BTC ${coins.toFixed(8)}`;
+coinCounter.textContent = `BTC : ${coins.toFixed(8)}`;
 
 // Add event listener to the Start button
 document.getElementById('start-button').addEventListener('click', () => {
@@ -320,11 +348,11 @@ document.getElementById('start-button').addEventListener('click', () => {
 
 // Add event listener to the Collect button
 document.getElementById('collect-button').addEventListener('click', () => {
-    // Calculate the amount of coins to add (randomly between 12 and 49)
-    let coinsToAdd = Math.floor(Math.random() * (0.0000049 - 0.0000012 + 0.000001)) + 0.0000012;
+    // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
+    let coinsToAdd = Math.random() * (0.00000120 - 0.00000120) + 0.00000120;
     coins += coinsToAdd;
     localStorage.setItem('coins', coins.toFixed(8));
-    coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+    coinCounter.textContent = `BTC   :  ${coins.toFixed(8)}`;
     document.getElementById('collect-button').style.display = 'none';
 });
 
@@ -334,6 +362,14 @@ document.getElementById('clear-button').addEventListener('click', () => {
     coins = Math.random() * 0.00000008 + 0.00000112;
     localStorage.setItem('coins', coins.toFixed(8));
     coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+});
+
+document.getElementById('withdraw-button').addEventListener('click', () => {
+    document.getElementById('popup-message').style.display = 'block';
+});
+
+document.getElementById('exit-button').addEventListener('click', () => {
+    document.getElementById('popup-message').style.display = 'none';
 });
 
     </script>

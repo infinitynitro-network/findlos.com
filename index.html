@@ -200,8 +200,8 @@
   .withdraw{
     color: #fdfeff;
     background-color: #001aff;
-    background-color: rgb(0, 0, 0);
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 15px 30px;
     border: none;
     border-radius: 25px;
@@ -221,10 +221,41 @@
   #bitcoinImage{
     display: block;
   }
+    
+  .invite-btn {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 150px;
+    align-items: center;
+    animation: zoomInOut 1s infinite alternate;
+    font-family: "Varela", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    display: block;
+
+
+}
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
     </style>
 </head>
 <body>
-   
+  
     <div id="coin-counter">
        
         <a>BTC 0.00000112</a></div>
@@ -244,7 +275,12 @@
         <a>Subscribe our community</a></button>
     <button class="withdraw" id="withdraw-button">Withdraw</button>
 
-
+    <button class="invite-btn" id="invite-btn">
+      <a>Invite a Friends</a>
+      <a>💸+100k</a>
+  
+          
+  </button>
     <div id="popup-message">
         <div id="popup-content">
           <p>Minimum withdraw is 0.6 BTC.</p>
@@ -388,5 +424,19 @@ document.getElementById('exit-button').addEventListener('click', () => {
           document.getElementById('popup-message').style.display = 'none';
         });
       </script>
+      
+      
+      <script>
+       
+        const btn = document.getElementById('invite-btn');
+        const url = 'https://infinitynitro-network.github.io/findlos.com/'; // replace with your URL
+        const text = 'hey dear, I make crypto coins frome here by taping coins, You can also tap and earn , Tap on click above and start to mine '
+        const imageUrl = 'https://cdn3d.iconscout.com/3d/premium/thumb/shopping-bag-6914258-5668340.png?f=webp'; // replace with your image URL
+        btn.addEventListener('click', () => {
+          const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+          window.open(shareUrl, '_blank');
+        });
+         
+    </script>
 </body>
 </html>

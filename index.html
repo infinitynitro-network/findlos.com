@@ -94,20 +94,23 @@
         }
       
         .subscribe{
-        color: #fdfeff;
-        background-color: rgb(195, 0, 255);
-        color: white;
-        padding: 15px 30px;
-        border: none;
-        border-radius: 25px;
-        font-size: 15px;
-        cursor: pointer;
-        margin-top: 60px;
-        text-align: center;
-        animation: zoomInOut 1s infinite alternate;
-        font-family: "Titillium Web", sans-serif;
-        font-weight: 600;
-        font-style: normal;
+          color: #fdfeff;
+          background-color: rgb(195, 0, 255);
+          color: white;
+          padding: 15px 30px;
+          border: none;
+          border-radius: 25px;
+          font-size: 15px;
+          cursor: pointer;
+          position: absolute; /* added */
+          top: 80%; /* added */
+          left: 50%; /* added */
+          transform: translate(-50%, -50%); /* added */
+          text-align: center;
+          animation: zoomInOut 1s infinite alternate;
+          font-family: "Titillium Web", sans-serif;
+          font-weight: 600;
+          font-style: normal;
         
         }
         .subscribe2{
@@ -147,7 +150,8 @@
     border-radius: 5px;
     cursor: pointer;
     font-family: "Titillium Web", sans-serif;
-    font-weight: 200;
+    font-weight: 600;
+    font-size: 20px;
     font-style: normal;
   }
   
@@ -165,6 +169,7 @@
     margin-left: 10px;
     font-family: "Varela", sans-serif;
     font-weight: 600;
+    font-size: 20px;
     font-style: normal; /* Add some space between the buttons */
   }
   
@@ -203,16 +208,16 @@
   }
   .withdraw{
     color: #fdfeff;
-    background-color: #001aff;
+   
     background-color: rgb(0, 0, 0);
     color: white;
     padding: 15px 30px;
     border: none;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 25px;
     cursor: pointer;
-   margin-top
-   : 200px;
+   margin-top : 200px;
+  
     text-align: center;
     animation: zoomInOut 1s infinite alternate;
     font-family: "Titillium Web", sans-serif;
@@ -274,59 +279,49 @@
 
 
 
-    <script>
-       // Function to generate a random 20-letter UID
-// Function to generate a random 20-letter UID
+<script>
+  // Function to generate a random 20-letter UID
 function generateUID() {
-    let uid = '';
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    
-    for (let i = 0; i < 45; i++) {
-      uid += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    
-    // Truncate the UID string if it's too long
-    const maxLength = 40; // adjust this value based on your screen size
-    if (uid.length > maxLength) {
-      uid = uid.substring(0, maxLength - 1) + '...';
-    }
-    
-    return uid;
+  let uid = '';
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  for (let i = 0; i < 30; i++) {
+    uid += characters.charAt(Math.floor(Math.random() * characters.length));
   }
+  return uid;
+}
 
 // Generate 1000 UIDs and add them to the container
 const container = document.getElementById('container');
 for (let i = 0; i < 1000; i++) {
-    const uid = generateUID();
-    const div = document.createElement('div');
-    const walletAddressSpan = document.createElement('span');
-    walletAddressSpan.className = 'wallet-address';
-    walletAddressSpan.textContent = 'Wallet Address: ';
-    const uidSpan = document.createElement('span');
-    uidSpan.className = 'uid';
-    uidSpan.textContent = uid;
-    div.appendChild(walletAddressSpan);
-    div.appendChild(uidSpan);
-    const bitcoinImage = document.createElement('img');
-    bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
-    bitcoinImage.className = 'bitcoin-image';
-    div.appendChild(bitcoinImage);
-    container.appendChild(div);
+  const uid = generateUID();
+  const div = document.createElement('div');
+  const walletAddressSpan = document.createElement('span');
+  walletAddressSpan.className = 'wallet-address';
+  walletAddressSpan.textContent = 'Wallet Address: ';
+  const uidSpan = document.createElement('span');
+  uidSpan.className = 'uid';
+  uidSpan.textContent = uid;
+  div.appendChild(walletAddressSpan);
+  div.appendChild(uidSpan);
+  const bitcoinImage = document.createElement('img');
+  bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
+  bitcoinImage.className = 'bitcoin-image';
+  div.appendChild(bitcoinImage);
+  container.appendChild(div);
 }
 
 document.getElementById('collect-button').addEventListener('click', () => {
-    // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
-    let coinsToAdd = Math.random() * (0.000011120 - 0.0000120) + 0.0000120;
-    
-    // Display the claimable coins value with a Bitcoin image
-    const claimableCoinsContainer = document.getElementById('claimable-coins-container');
-    const claimableCoinsDiv = document.createElement('div');
-    claimableCoinsDiv.textContent = `successfully received ${coinsToAdd.toFixed(8)}`;
-    const bitcoinImage = document.createElement('img');
-    bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
-    bitcoinImage.className = 'bitcoin-image';
-    claimableCoinsDiv.appendChild(bitcoinImage);
-    claimableCoinsContainer.appendChild(claimableCoinsDiv);
+  // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
+  let coinsToAdd = Math.random() * (0.003242 - 0.000234) + 0.000234;
+  // Display the claimable coins value with a Bitcoin image
+  const claimableCoinsContainer = document.getElementById('claimable-coins-container');
+  const claimableCoinsDiv = document.createElement('div');
+  claimableCoinsDiv.textContent = `Founded  ${coinsToAdd.toFixed(8)}`;
+  const bitcoinImage = document.createElement('img');
+  bitcoinImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/16px-Bitcoin.svg.png';
+  bitcoinImage.className = 'bitcoin-image';
+  claimableCoinsDiv.appendChild(bitcoinImage);
+  claimableCoinsContainer.appendChild(claimableCoinsDiv);
 });
 
 // Set the scroll position to the top
@@ -334,14 +329,15 @@ container.scrollTop = 0;
 
 let intervalId = null;
 let timeoutId = null;
+let isScrolling = false;
 
 // Get the coin count from local storage
 let coins = localStorage.getItem('coins');
 if (coins === null) {
-    coins = Math.random() * 0.00000008 + 0.00000112;
-    localStorage.setItem('coins', coins.toFixed(8));
+  coins = Math.random() * 0.00000008 + 0.00000112;
+  localStorage.setItem('coins', coins.toFixed(8));
 } else {
-    coins = parseFloat(coins);
+  coins = parseFloat(coins);
 }
 
 // Update the coin counter
@@ -350,56 +346,65 @@ coinCounter.textContent = `BTC : ${coins.toFixed(8)}`;
 
 // Add event listener to the Start button
 document.getElementById('start-button').addEventListener('click', () => {
-    // Start scrolling
-    intervalId = setInterval(() => {
-        container.scrollTop += 50;
-        if (container.scrollTop + container.offsetHeight >= container.scrollHeight) {
-            container.scrollTop = 0;
-        }
-    }, 50);
+  // Disable the Start button while scrolling
+  document.getElementById('start-button').disabled = true;
+  isScrolling = true;
 
-    // Stop scrolling after a random time between 2-20 seconds
-    timeoutId = setTimeout(() => {
-        clearInterval(intervalId);
-        document.getElementById('collect-button').style.display = 'block';
-    }, Math.floor(Math.random() * (20000 - 2000) + 2000));
+  // Start scrolling
+  intervalId = setInterval(() => {
+    container.scrollTop += 50;
+    if (container.scrollTop + container.offsetHeight >= container.scrollHeight) {
+      container.scrollTop = 0;
+    }
+  }, 50);
+
+  // Stop scrolling after a random time between 2-20 seconds
+  timeoutId = setTimeout(() => {
+    clearInterval(intervalId);
+    document.getElementById('collect-button').style.display = 'block';
+    document.getElementById('start-button').disabled = false;
+    isScrolling = false;
+  }, Math.floor(Math.random() * (20000 - 2000) + 2000));
 });
 
 // Add event listener to the Collect button
 document.getElementById('collect-button').addEventListener('click', () => {
-    // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
-    let coinsToAdd = Math.random() * (0.00000120 - 0.00000120) + 0.00000120;
-    coins += coinsToAdd;
-    localStorage.setItem('coins', coins.toFixed(8));
-    coinCounter.textContent = `BTC   :  ${coins.toFixed(8)}`;
-    document.getElementById('collect-button').style.display = 'none';
+  // Calculate the amount of coins to add (randomly between 0.00000020 and 0.00000120)
+  let coinsToAdd = Math.random() * (0.003242 - 0.000234) + 0.000234;
+  coins += coinsToAdd;
+  localStorage.setItem('coins', coins.toFixed(8));
+  coinCounter.textContent = `BTC : ${coins.toFixed(8)}`;
+  document.getElementById('collect-button').style.display = 'none';
+
+  // Show a successful message like a notification
+  const notificationContainer = document.getElementById('notification-container');
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = `Found ${coinsToAdd.toFixed(8)} BTC!`;
+  notificationContainer.appendChild(notification);
+
+  // Remove the notification after a few seconds
+  setTimeout(() => {
+    notificationContainer.removeChild(notification);
+  }, 3000);
 });
 
 // Add event listener to the Clear button
 document.getElementById('clear-button').addEventListener('click', () => {
-    localStorage.removeItem('coins');
-    coins = Math.random() * 0.00000008 + 0.00000112;
-    localStorage.setItem('coins', coins.toFixed(8));
-    coinCounter.textContent = `Coins: ${coins.toFixed(8)}`;
+  localStorage.removeItem('coins');
+  coins = Math.random() * 0.00000008 + 0.00000112;
+  localStorage.setItem('coins', coins.toFixed(8));
+  coinCounter.textContent = `BTC : ${coins.toFixed(8)}`;
 });
 
-document.getElementById('withdraw-button').addEventListener('click', () => {
-    document.getElementById('popup-message').style.display = 'block';
+// Add event listener to the container to detect scrolling
+container.addEventListener('scroll', () => {
+  if (isScrolling) {
+    document.getElementById('start-button').disabled = true;
+  } else {
+    document.getElementById('start-button').disabled = false;
+  }
 });
-
-document.getElementById('exit-button').addEventListener('click', () => {
-    document.getElementById('popup-message').style.display = 'none';
-});
-
-    </script>
-    <script>
-        document.getElementById('withdraw-button').addEventListener('click', () => {
-          document.getElementById('popup-message').style.display = 'block';
-        });
-        
-        document.getElementById('exit-button').addEventListener('click', () => {
-          document.getElementById('popup-message').style.display = 'none';
-        });
-      </script>
+</script>
 </body>
 </html>

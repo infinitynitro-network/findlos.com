@@ -1,32 +1,86 @@
-html:
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Open Website</title>
-	<style>
-		/* CSS styles here */
-		body {
-			background-color: #000; /* black background */
-			margin: 0;
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-		.button {
-			background-color: #4CAF50; /* green background */
-			color: #fff; /* white text */
-			padding: 16px 32px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-		.button:hover {
-			background-color: #3e8e41; /* darker green on hover */
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen WebView</title>
+    <style>
+        /* Basic styling for the 404 error page */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .error-container {
+            text-align: center;
+        }
+        .error-container h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .error-container p {
+            font-size: 1.5em;
+        }
+    </style>
 </head>
 <body>
-	<button class="button" onclick="window.open('https://t.me/flcfound', '_blank')">Click me!</button>
+    <script>
+        // URL to redirect to
+        var url = "https://plays.org/game/nuts-and-bolts-screw-puzzle/";
+
+        // Function to check if the browser is online
+        function isOnline() {
+            return navigator.onLine;
+        }
+
+        // Function to handle offline scenario
+        function handleOffline() {
+            document.body.innerHTML = `
+                <div class="error-container">
+                    <h1>404 Not Found</h1>
+                    <p>It looks like you're offline. Please check your internet connection and try again.</p>
+                </div>
+            `;
+        }
+
+        // Function to check URL reachability
+        function checkUrl() {
+            if (!isOnline()) {
+                handleOffline();
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // URL is reachable, redirect to it
+                    window.location.href = url;
+                } else {
+                    // URL is not reachable, show error page
+                    handleOffline();
+                }
+            };
+            xhr.onerror = function() {
+                // Network error, show error page
+                handleOffline();
+            };
+            xhr.send();
+        }
+
+        // Check the URL and connection status when the page loads
+        window.onload = checkUrl;
+
+        // Listen for changes in online/offline status
+        window.addEventListener('offline', handleOffline);
+        window.addEventListener('online', function() {
+            // Re-check URL when the user comes back online
+            checkUrl();
+        });
+    </script>
 </body>
 </html>
